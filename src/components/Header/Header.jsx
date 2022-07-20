@@ -4,11 +4,11 @@ import Logo from './components/Logo/Logo';
 import Styles from './Header.module.css';
 
 export default function Header() {
-  return (
-    <div className={Styles.header}>
-      <Logo />
-      <div>User Name</div>
-      <Button buttonText="Logout" />
-    </div>
-  );
+	return (
+		<div className={Styles.header}>
+			<Logo />
+			<div>User Name</div>
+			<Button buttonText='Logout' />
+		</div>
+	);
 }
