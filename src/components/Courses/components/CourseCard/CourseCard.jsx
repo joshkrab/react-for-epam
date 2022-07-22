@@ -5,8 +5,8 @@ import Styles from './CourseCard.module.css';
 
 function CourseCard({
 	title,
-	description,
 	creationDate,
+	description,
 	authors,
 	duration,
 	authorsList,
@@ -19,9 +19,13 @@ function CourseCard({
 		return `${hours}:${minutes} hours`;
 	}
 
+	// Перебираємо пропс авторів поточного поста - там масив з двома айдішниками
 	authors.forEach((key, index) => {
+		// Перебираємо повний масив авторів/айдішників
 		authorsList.forEach((element) => {
+			// Якщо даний айтем то наш айді/автор
 			if (element.id === key) {
+				// Додаємо в стан авторів по індексу значення поля name
 				setNewAuthors([...authors, (authors[index] = element.name)]);
 			}
 		});
