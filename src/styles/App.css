@@ -1,21 +1,47 @@
 * {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background-color: #fff;
 }
 
 body {
-   width: 100%;
-   min-height: 100vh;
-   background-color: rgb(240, 240, 240);
+	width: 100%;
+	min-height: 100vh;
+	background-color: rgb(240, 240, 240);
 }
 
 #root {
-   background-color: #fff;
-   max-width: 1100px;
-   margin: 0 auto;
+	/* background-color: #fff; */
+	/* max-width: 1100px; */
+	margin: 0 auto;
 }
 
 .App {
-   min-height: 500px;
+	min-height: 500px;
+	background-color: rgb(240, 240, 240);
+}
+
+/* Search ------------------------------------------------------------------------------------------ */
+.search-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px 0px;
+	background-color: rgb(240, 240, 240);
+}
+
+.search-bar {
+	/* width: 60%; */
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: rgb(240, 240, 240);
+}
+
+/* Courses -----------------------------------------------------------------------------------------------*/
+.courses {
+	max-width: 1100px;
+	margin: 0 auto;
+	background-color: rgb(240, 240, 240);
 }

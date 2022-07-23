@@ -1,6 +1,8 @@
 // rfc
 import React from 'react';
+import Button from '../../common/Button/Button';
 import CourseCard from './components/CourseCard/CourseCard';
+import SearchBar from './components/SearchBar/SearchBar';
 
 function Courses() {
 	const mockedCoursesList = [
@@ -63,6 +65,10 @@ function Courses() {
 
 	return (
 		<div className='courses'>
+			<div className='search-row'>
+				<SearchBar />
+				<Button buttonText='Add new course'></Button>
+			</div>
 			{mockedCoursesList.map((item) => (
 				<CourseCard
 					key={item.id}
