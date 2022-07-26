@@ -47,7 +47,7 @@ function CourseCard({
 				<p>
 					<span>Created:</span> {creationDate.split('/').join('.')}
 				</p>
-				<Button buttonText='Show course' />
+				<Button buttontext='Show course' />
 			</div>
 		</div>
 	);

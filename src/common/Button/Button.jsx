@@ -2,15 +2,10 @@
 import React from 'react';
 import Styles from './Button.module.css';
 
-function Button({ buttonText }) {
+function Button(props) {
 	return (
-		<button
-			className={Styles.button}
-			onClick={(e) => {
-				e.preventDefault();
-			}}
-		>
-			{buttonText}
+		<button className={Styles.button} {...props}>
+			{props.buttontext}
 		</button>
 	);
 }

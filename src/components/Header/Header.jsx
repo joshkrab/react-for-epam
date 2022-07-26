@@ -8,7 +8,7 @@ export default function Header() {
 		<div className={Styles.header}>
 			<Logo />
 			<div>User Name</div>
-			<Button buttonText='Logout' />
+			<Button buttontext='Logout' />
 		</div>
 	);
 }

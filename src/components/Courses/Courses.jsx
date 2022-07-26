@@ -1,10 +1,32 @@
 // rfc
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../../common/Button/Button';
 import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 
 function Courses() {
+	// Стан для інпуту пошуку:
+	const [inputValue, setInputValue] = useState('');
+
+	const mockedAuthorsList = [
+		{
+			id: '27cc3006-e93a-4748-8ca8-73d06aa93b6d',
+			name: 'Vasiliy Dobkin',
+		},
+		{
+			id: 'f762978b-61eb-4096-812b-ebde22838167',
+			name: 'Nicolas Kim',
+		},
+		{
+			id: 'df32994e-b23d-497c-9e4d-84e4dc02882f',
+			name: 'Anna Sidorenko',
+		},
+		{
+			id: '095a1817-d45b-4ed7-9cf7-b2417bcbf748',
+			name: 'Valentina Larina',
+		},
+	];
+
 	const mockedCoursesList = [
 		{
 			id: 'de5aaa59-90f5-4dbc-b8a9-aaf205c551ba',
@@ -44,32 +66,21 @@ function Courses() {
 		},
 	];
 
-	const mockedAuthorsList = [
-		{
-			id: '27cc3006-e93a-4748-8ca8-73d06aa93b6d',
-			name: 'Vasiliy Dobkin',
-		},
-		{
-			id: 'f762978b-61eb-4096-812b-ebde22838167',
-			name: 'Nicolas Kim',
-		},
-		{
-			id: 'df32994e-b23d-497c-9e4d-84e4dc02882f',
-			name: 'Anna Sidorenko',
-		},
-		{
-			id: '095a1817-d45b-4ed7-9cf7-b2417bcbf748',
-			name: 'Valentina Larina',
-		},
-	];
+	// Стан постів:
+	const [posts, setPosts] = useState([...mockedCoursesList]);
 
 	return (
 		<div className='courses'>
 			<div className='search-row'>
-				<SearchBar />
-				<Button buttonText='Add new course'></Button>
+				<SearchBar
+					posts={mockedCoursesList}
+					setPosts={setPosts}
+					inputValue={inputValue}
+					setInputValue={setInputValue}
+				/>
+				<Button buttontext='Add new course'></Button>
 			</div>
-			{mockedCoursesList.map((item) => (
+			{posts.map((item) => (
 				<CourseCard
 					key={item.id}
 					id={item.id}
