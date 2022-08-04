@@ -1,0 +1,44 @@
+.CreateCourse {
+	width: 100%;
+	max-width: 1100px;
+	margin: 0 auto;
+	background-color: transparent;
+	padding: 0px 20px;
+}
+
+.headerRow {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	background-color: transparent;
+	margin: 0px 0px 20px 0px;
+}
+
+.CreateCourseBody {
+	background-color: transparent;
+	display: flex;
+	border: 1px solid black;
+	padding: 40px 10px;
+}
+
+.CreateCourseRow1 {
+	width: 50%;
+	text-align: center;
+}
+
+.durationOutput {
+	text-align-last: left;
+}
+
+.CreateCourseRow2 {
+	width: 50%;
+	text-align: center;
+	padding: 0px 60px;
+}
+
+.AuthorName {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0px 0px 10px 0px;
+}

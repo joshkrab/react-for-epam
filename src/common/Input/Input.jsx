@@ -5,7 +5,9 @@ export default function Input(props) {
 	const id = useId();
 	return (
 		<div className={styles.inputBody}>
-			<label htmlFor={id}>{props.labelText}</label>
+			<label className={styles.label} htmlFor={id}>
+				{props.labelText}
+			</label>
 			<input
 				{...props}
 				className={styles.input}
