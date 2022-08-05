@@ -4,7 +4,7 @@ import Button from '../../common/Button/Button';
 import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 
-function Courses() {
+function Courses({ isCourses, setIsCourses }) {
 	// Стан для інпуту пошуку:
 	const [inputValue, setInputValue] = useState('');
 
@@ -78,7 +78,13 @@ function Courses() {
 					inputValue={inputValue}
 					setInputValue={setInputValue}
 				/>
-				<Button buttontext='Add new course'></Button>
+				<Button
+					buttontext='Add new course'
+					onClick={(event) => {
+						event.preventDefault();
+						setIsCourses(false);
+					}}
+				></Button>
 			</div>
 			{posts.map((item) => (
 				<CourseCard

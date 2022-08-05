@@ -6,7 +6,7 @@ export default function Input(props) {
 	return (
 		<div className={styles.inputBody}>
 			<label className={styles.label} htmlFor={id}>
-				{props.labelText}
+				{props.labeltext}
 			</label>
 			<input
 				{...props}

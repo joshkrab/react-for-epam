@@ -4,9 +4,8 @@ import Input from '../../common/Input/Input';
 import Textarea from '../../common/Textarea/Textarea';
 import Styles from './CreateCourse.module.css';
 
-export default function CreateCourse() {
+export default function CreateCourse({ isCourses, setIsCourses }) {
 	const [duration, setDuration] = useState('00:00');
-	const [autorsOut, setAutorsOut] = useState('Authors list is empty');
 
 	const mockedAuthorsList = [
 		{
@@ -27,11 +26,20 @@ export default function CreateCourse() {
 		},
 	];
 
+	const [authors, setAuthors] = useState([...mockedAuthorsList]);
+	const [authorsOut, setAuthorsOut] = useState([]);
+
 	return (
 		<div className={Styles.CreateCourse}>
 			<div className={Styles.headerRow}>
-				<Input labelText='Title' placeholder='Enter title...' />
-				<Button buttontext='Create course'></Button>
+				<Input labeltext='Title' placeholder='Enter title...' />
+				<Button
+					buttontext='Create course'
+					onClick={(event) => {
+						event.preventDefault();
+						setIsCourses(true);
+					}}
+				></Button>
 			</div>
 			<Textarea labelText='Description' placeholder='Enter description' />
 			<div className={Styles.CreateCourseBody}>
@@ -41,7 +49,7 @@ export default function CreateCourse() {
 					</p>
 					<Input
 						style={{ margin: '0 0 20px 0', width: '100%' }}
-						labelText='Author name'
+						labeltext='Author name'
 						placeholder='Enter author name...'
 					/>
 					<Button
@@ -51,7 +59,7 @@ export default function CreateCourse() {
 					<p style={{ textAlign: 'center', padding: '0 0 20px 0' }}>Duration</p>
 					<Input
 						style={{ margin: '0 0 20px 0', width: '100%' }}
-						labelText='Duration'
+						labeltext='Duration'
 						placeholder='Enter duration in minutes...'
 						onChange={(event) => {
 							setDuration(event.target.value);
@@ -62,17 +70,47 @@ export default function CreateCourse() {
 					</div>
 				</div>
 				<div className={Styles.CreateCourseRow2}>
-					<p style={{ textAlign: 'center', padding: '0 0 40px 0' }}>Authors</p>
-					{mockedAuthorsList.map((item) => (
-						<div className={Styles.AuthorName} key={item.id}>
-							<span>{item.name}</span>
-							<Button buttontext='Add author'></Button>
-						</div>
-					))}
+					<p style={{ textAlign: 'center', padding: '0 0 40px 0' }}>Authors:</p>
+
+					{authors[0] ? (
+						authors.map((item, index) => (
+							<div className={Styles.AuthorName} key={item.id}>
+								<span>{item.name}</span>
+								<Button
+									onClick={(event) => {
+										event.preventDefault();
+										setAuthorsOut([...authorsOut, item]);
+										setAuthors(authors.filter((i) => i !== item));
+									}}
+									buttontext='Add author'
+								></Button>
+							</div>
+						))
+					) : (
+						<div className={Styles.AuthorOutput}>Authors list is empty</div>
+					)}
+
 					<p style={{ textAlign: 'center', margin: '40px 0 20px 0' }}>
-						Course authors
+						Course authors:
 					</p>
-					<div className={Styles.AuthorOutput}>{autorsOut}</div>
+
+					{authorsOut[0] ? (
+						authorsOut.map((item) => (
+							<div className={Styles.AuthorName} key={item.id}>
+								<span>{item.name}</span>
+								<Button
+									onClick={(event) => {
+										event.preventDefault();
+										setAuthors([...authors, item]);
+										setAuthorsOut(authorsOut.filter((i) => i !== item));
+									}}
+									buttontext='Delete author'
+								></Button>
+							</div>
+						))
+					) : (
+						<div className={Styles.AuthorOutput}>Authors list is empty</div>
+					)}
 				</div>
 			</div>
 		</div>
