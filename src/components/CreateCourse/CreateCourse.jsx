@@ -3,6 +3,7 @@ import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 import Textarea from '../../common/Textarea/Textarea';
 import Styles from './CreateCourse.module.css';
+import { v4 as uuid } from 'uuid';
 
 export default function CreateCourse({ isCourses, setIsCourses }) {
 	const [duration, setDuration] = useState('00:00');
@@ -28,6 +29,18 @@ export default function CreateCourse({ isCourses, setIsCourses }) {
 
 	const [authors, setAuthors] = useState([...mockedAuthorsList]);
 	const [authorsOut, setAuthorsOut] = useState([]);
+	const [newAuthor, setNewAuthor] = useState('');
+
+	function addNewAuthor() {
+		const id = uuid();
+		setAuthors([
+			...authors,
+			{
+				id: `${id}`,
+				name: `${newAuthor}`,
+			},
+		]);
+	}
 
 	return (
 		<div className={Styles.CreateCourse}>
@@ -51,12 +64,23 @@ export default function CreateCourse({ isCourses, setIsCourses }) {
 						style={{ margin: '0 0 20px 0', width: '100%' }}
 						labeltext='Author name'
 						placeholder='Enter author name...'
+						onChange={(event) => {
+							setNewAuthor(event.target.value);
+						}}
 					/>
 					<Button
 						style={{ margin: '0 0 40px 0' }}
 						buttontext='Create author'
+						onClick={(event) => {
+							event.preventDefault();
+							newAuthor.length >= 2
+								? addNewAuthor()
+								: alert('Input valid data, min 2 letters');
+						}}
 					></Button>
+
 					<p style={{ textAlign: 'center', padding: '0 0 20px 0' }}>Duration</p>
+
 					<Input
 						style={{ margin: '0 0 20px 0', width: '100%' }}
 						labeltext='Duration'
