@@ -1,33 +1,27 @@
 import React, { useState } from 'react';
+
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 import Textarea from '../../common/Textarea/Textarea';
+
 import Styles from './CreateCourse.module.css';
+
 import { v4 as uuid } from 'uuid';
 
-export default function CreateCourse({ isCourses, setIsCourses }) {
+export default function CreateCourse({
+	isCourses,
+	setIsCourses,
+	newPosts,
+	setNewPosts,
+	newIdArr,
+	setNewIdArr,
+}) {
 	const [duration, setDuration] = useState('00:00');
+	const [durMinutes, setDurMinutes] = useState('');
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
 
-	const mockedAuthorsList = [
-		{
-			id: '27cc3006-e93a-4748-8ca8-73d06aa93b6d',
-			name: 'Vasiliy Dobkin',
-		},
-		{
-			id: 'f762978b-61eb-4096-812b-ebde22838167',
-			name: 'Nicolas Kim',
-		},
-		{
-			id: 'df32994e-b23d-497c-9e4d-84e4dc02882f',
-			name: 'Anna Sidorenko',
-		},
-		{
-			id: '095a1817-d45b-4ed7-9cf7-b2417bcbf748',
-			name: 'Valentina Larina',
-		},
-	];
-
-	const [authors, setAuthors] = useState([...mockedAuthorsList]);
+	const [authors, setAuthors] = useState([...newIdArr]);
 	const [authorsOut, setAuthorsOut] = useState([]);
 	const [newAuthor, setNewAuthor] = useState('');
 
@@ -40,21 +34,90 @@ export default function CreateCourse({ isCourses, setIsCourses }) {
 				name: `${newAuthor}`,
 			},
 		]);
+		setNewIdArr([
+			...newIdArr,
+			{
+				id: `${id}`,
+				name: `${newAuthor}`,
+			},
+		]);
+	}
+
+	function setHours(min) {
+		let minutes;
+		let hours;
+		if (min >= 60) {
+			minutes = min % 60;
+			hours = Math.floor(min / 60);
+		} else {
+			minutes = min;
+			hours = '00';
+		}
+
+		if (minutes < 10) {
+			minutes = '0' + minutes;
+		}
+		if (min === '') {
+			minutes = '00';
+		}
+		if (hours < 10 && hours !== '00') {
+			hours = '0' + hours;
+		}
+
+		setDuration(`${hours}:${minutes}`);
+	}
+
+	function addCourse() {
+		const date = new Date().toLocaleDateString('en-GB');
+		const id = uuid();
+		if (
+			title.length > 2 &&
+			description.length > 2 &&
+			durMinutes > 0 &&
+			authorsOut[0]
+		) {
+			const authorsIdArray = authorsOut.map((item) => item.id);
+			const newPost = {
+				id: id,
+				title: title,
+				description: description,
+				creationDate: date,
+				duration: +durMinutes,
+				authors: [...authorsIdArray],
+			};
+
+			setNewPosts([...newPosts, newPost]);
+			setIsCourses(true);
+		} else {
+			alert('Please, fill in all fields!');
+		}
 	}
 
 	return (
 		<div className={Styles.CreateCourse}>
 			<div className={Styles.headerRow}>
-				<Input labeltext='Title' placeholder='Enter title...' />
+				<Input
+					labeltext='Title'
+					placeholder='Enter title...'
+					onChange={(event) => {
+						setTitle(event.target.value);
+					}}
+				/>
 				<Button
 					buttontext='Create course'
 					onClick={(event) => {
 						event.preventDefault();
-						setIsCourses(true);
+						addCourse();
 					}}
 				></Button>
 			</div>
-			<Textarea labelText='Description' placeholder='Enter description' />
+
+			<Textarea
+				labelText='Description'
+				placeholder='Enter description'
+				onChange={setDescription}
+			/>
+
 			<div className={Styles.CreateCourseBody}>
 				<div className={Styles.CreateCourseRow1}>
 					<p style={{ textAlign: 'center', padding: '0 0 20px 0' }}>
@@ -85,8 +148,10 @@ export default function CreateCourse({ isCourses, setIsCourses }) {
 						style={{ margin: '0 0 20px 0', width: '100%' }}
 						labeltext='Duration'
 						placeholder='Enter duration in minutes...'
+						type='number'
 						onChange={(event) => {
-							setDuration(event.target.value);
+							setHours(event.target.value);
+							setDurMinutes(event.target.value);
 						}}
 					/>
 					<div className={Styles.durationOutput}>

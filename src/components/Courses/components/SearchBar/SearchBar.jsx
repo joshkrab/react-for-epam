@@ -1,5 +1,6 @@
 // rfc
 import React from 'react';
+
 import Button from '../../../../common/Button/Button';
 import Input from '../../../../common/Input/Input';
 
@@ -16,7 +17,6 @@ const SearchBar = ({ inputValue, setInputValue, setPosts, posts }) => {
 	}
 
 	function isInputValue(event) {
-		console.log('В інпуті: ', event.target.value);
 		setInputValue(event.target.value);
 		if (event.target.value === '') {
 			setPosts(posts);

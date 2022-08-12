@@ -3,6 +3,12 @@ import styles from './Input.module.css';
 
 export default function Input(props) {
 	const id = useId();
+	let type;
+	if (props.type) {
+		type = props.type;
+	} else {
+		type = 'text';
+	}
 	return (
 		<div className={styles.inputBody}>
 			<label className={styles.label} htmlFor={id}>
@@ -12,7 +18,7 @@ export default function Input(props) {
 				{...props}
 				className={styles.input}
 				id={id}
-				type='text'
+				type={type}
 				placeholder={props.placeholder}
 			/>
 		</div>

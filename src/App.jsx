@@ -1,45 +1,98 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Button from './common/Button/Button';
+
 import Courses from './components/Courses/Courses';
 import CreateCourse from './components/CreateCourse/CreateCourse';
 import Header from './components/Header/Header';
+
 import './styles/App.css';
+
+const mockedCoursesList = [
+	{
+		id: 'de5aaa59-90f5-4dbc-b8a9-aaf205c551ba',
+		title: 'JavaScript',
+		description: `Lorem Ipsum is simply dummy text of the printing and
+                        typesetting industry. Lorem Ipsum
+                        has been the industry's standard dummy text ever since the
+                        1500s, when an unknown
+                        printer took a galley of type and scrambled it to make a type
+                        specimen book. It has survived
+                        not only five centuries, but also the leap into electronic
+                        typesetting, remaining essentially u
+                        nchanged.`,
+		creationDate: '8/3/2021',
+		duration: 160,
+		authors: [
+			'27cc3006-e93a-4748-8ca8-73d06aa93b6d',
+			'f762978b-61eb-4096-812b-ebde22838167',
+		],
+	},
+
+	{
+		id: 'b5630fdd-7bf7-4d39-b75a-2b5906fd0916',
+		title: 'Angular',
+		description: `Lorem Ipsum is simply dummy text of the printing and
+                        typesetting industry. Lorem Ipsum
+                        has been the industry's standard dummy text ever since the
+                        1500s, when an unknown
+                        printer took a galley of type and scrambled it to make a type
+                        specimen book.`,
+		creationDate: '10/11/2020',
+		duration: 210,
+		authors: [
+			'df32994e-b23d-497c-9e4d-84e4dc02882f',
+			'095a1817-d45b-4ed7-9cf7-b2417bcbf748',
+		],
+	},
+];
+
+const mockedAuthorsList = [
+	{
+		id: '27cc3006-e93a-4748-8ca8-73d06aa93b6d',
+		name: 'Vasiliy Dobkin',
+	},
+	{
+		id: 'f762978b-61eb-4096-812b-ebde22838167',
+		name: 'Nicolas Kim',
+	},
+	{
+		id: 'df32994e-b23d-497c-9e4d-84e4dc02882f',
+		name: 'Anna Sidorenko',
+	},
+	{
+		id: '095a1817-d45b-4ed7-9cf7-b2417bcbf748',
+		name: 'Valentina Larina',
+	},
+];
 
 function App() {
 	const [isCourses, setIsCourses] = useState(true);
-	// Отримуємо дані з редакс стану:
-	const dispach = useDispatch();
-	// Беремо конкретну змінну зі стану:
-	const cash = useSelector((state) => state.cash);
-	console.log(cash);
 
-	// Функція зміни стану:
-	function addCash(cash) {
-		dispach({ type: 'ADD_CASH', payload: cash }); // Передаємо екшн діспечеру
-	}
-	function getCash(cash) {
-		dispach({ type: 'GET_CASH', payload: cash }); // Передаємо екшн діспечеру
-	}
-	// console.log(changeState(5));
+	// Стан для додавання курсів:
+	const [newPosts, setNewPosts] = useState([...mockedCoursesList]);
+	const [newIdArr, setNewIdArr] = useState([...mockedAuthorsList]);
 
 	return (
 		<div className='app'>
 			<Header />
 			{isCourses ? (
-				<Courses isCourses={isCourses} setIsCourses={setIsCourses} />
+				<Courses
+					isCourses={isCourses}
+					setIsCourses={setIsCourses}
+					newPosts={newPosts}
+					setNewPosts={setNewPosts}
+					newIdArr={newIdArr}
+					setNewIdArr={setNewIdArr}
+				/>
 			) : (
-				<CreateCourse isCourses={isCourses} setIsCourses={setIsCourses} />
+				<CreateCourse
+					isCourses={isCourses}
+					setIsCourses={setIsCourses}
+					newPosts={newPosts}
+					setNewPosts={setNewPosts}
+					newIdArr={newIdArr}
+					setNewIdArr={setNewIdArr}
+				/>
 			)}
-			<div>Зараз в стану redux: {cash}грн</div>
-			<Button
-				buttontext='Пополнити рахунок'
-				onClick={() => addCash(Number(prompt()))}
-			></Button>
-			<Button
-				buttontext='Зняти з рахунку'
-				onClick={() => getCash(Number(prompt()))}
-			></Button>
 		</div>
 	);
 }
