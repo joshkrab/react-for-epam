@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import Courses from './components/Courses/Courses';
 import CreateCourse from './components/CreateCourse/CreateCourse';
 import Header from './components/Header/Header';
@@ -65,34 +67,39 @@ const mockedAuthorsList = [
 ];
 
 function App() {
-	const [isCourses, setIsCourses] = useState(true);
-
 	// Стан для додавання курсів:
 	const [newPosts, setNewPosts] = useState([...mockedCoursesList]);
 	const [newIdArr, setNewIdArr] = useState([...mockedAuthorsList]);
 
 	return (
 		<div className='app'>
-			<Header />
-			{isCourses ? (
-				<Courses
-					isCourses={isCourses}
-					setIsCourses={setIsCourses}
-					newPosts={newPosts}
-					setNewPosts={setNewPosts}
-					newIdArr={newIdArr}
-					setNewIdArr={setNewIdArr}
-				/>
-			) : (
-				<CreateCourse
-					isCourses={isCourses}
-					setIsCourses={setIsCourses}
-					newPosts={newPosts}
-					setNewPosts={setNewPosts}
-					newIdArr={newIdArr}
-					setNewIdArr={setNewIdArr}
-				/>
-			)}
+			<BrowserRouter>
+				<Header />
+				<Routes>
+					<Route
+						path='/courses'
+						element={
+							<Courses
+								newPosts={newPosts}
+								setNewPosts={setNewPosts}
+								newIdArr={newIdArr}
+								setNewIdArr={setNewIdArr}
+							/>
+						}
+					></Route>
+					<Route
+						path='/courses/add'
+						element={
+							<CreateCourse
+								newPosts={newPosts}
+								setNewPosts={setNewPosts}
+								newIdArr={newIdArr}
+								setNewIdArr={setNewIdArr}
+							/>
+						}
+					></Route>
+				</Routes>
+			</BrowserRouter>
 		</div>
 	);
 }

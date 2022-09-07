@@ -1,19 +1,15 @@
 // rfc
 import React, { useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import Button from '../../common/Button/Button';
 
 import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 
-function Courses({
-	isCourses,
-	setIsCourses,
-	newPosts,
-	setNewPosts,
-	newIdArr,
-	setNewIdArr,
-}) {
+function Courses({ newPosts, setNewPosts, newIdArr, setNewIdArr }) {
+	const router = useNavigate();
 	// Стан для інпуту пошуку:
 	const [inputValue, setInputValue] = useState('');
 	// Стан постів для пошуку:
@@ -35,7 +31,8 @@ function Courses({
 					buttontext='Add new course'
 					onClick={(event) => {
 						event.preventDefault();
-						setIsCourses(false);
+						// setIsCourses(false);
+						router(`/courses/add`);
 					}}
 				></Button>
 			</div>

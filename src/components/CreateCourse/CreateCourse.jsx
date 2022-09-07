@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 import Textarea from '../../common/Textarea/Textarea';
@@ -9,13 +11,12 @@ import Styles from './CreateCourse.module.css';
 import { v4 as uuid } from 'uuid';
 
 export default function CreateCourse({
-	isCourses,
-	setIsCourses,
 	newPosts,
 	setNewPosts,
 	newIdArr,
 	setNewIdArr,
 }) {
+	const router = useNavigate();
 	const [duration, setDuration] = useState('00:00');
 	const [durMinutes, setDurMinutes] = useState('');
 	const [title, setTitle] = useState('');
@@ -87,7 +88,8 @@ export default function CreateCourse({
 			};
 
 			setNewPosts([...newPosts, newPost]);
-			setIsCourses(true);
+			// setIsCourses(true);
+			router(`/courses`);
 		} else {
 			alert('Please, fill in all fields!');
 		}
